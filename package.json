@@ -1,0 +1,19 @@
+{
+  "name": "serverless-api",
+  "version": "1.0.0",
+  "description": "A serverless API deployed on AWS Lambda",
+  "main": "handler.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "start-prod": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["serverless", "api", "lambda"],
+  "author": "Jay Bhavsar",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^2.0.7",
+    "express": "^4.17.1",
+    "aws-serverless-express": "^3.4.0"
+  }
+}
