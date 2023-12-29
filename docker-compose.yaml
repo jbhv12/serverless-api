@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  dynamodb-local:
+    command: '-jar DynamoDBLocal.jar -sharedDb -dbPath ./data'
+    image: 'amazon/dynamodb-local:latest'
+    container_name: dynamodb-local
+    ports:
+      - '8000:8000'
+    volumes:
+      - './docker/dynamodb:/home/dynamodblocal/data'
+    working_dir: /home/dynamodblocal
+  app-node:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: location-of-your-dynamodb-demo-app:latest
+    container_name: app-node
+    ports:
+      - '3000:3000'
+    depends_on:
+      - dynamodb-local
+    links:
+      - dynamodb-local
+    environment:
+      AWS_ACCESS_KEY_ID: DUMMYIDEXAMPLE
+      AWS_SECRET_ACCESS_KEY: DUMMYEXAMPLEKEY
+      REGION: us-west-2
+      STAGE: local
