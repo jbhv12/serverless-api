@@ -31,12 +31,28 @@ provider:
     WORKOUT_LOGS_TABLE: ${self:custom.usersTableName}
 
 functions:
-  api:
-    handler: app.handler
+  users:
+    handler: usersFunction.handler
     events:
       - httpApi:
           path: /todos
-          method: get
+          method: GET
+      - httpApi:
+          path: /users
+          method: POST
+      - httpApi:
+          path: /users
+          method: GET
+      - httpApi:
+          path: /users/{id}
+          method: GET
+      - httpApi:
+          path: /users/{id}
+          method: PUT
+      - httpApi:
+          path: /users/{id}
+          method: DELETE
+
 resources:
   Resources:
     UsersTable:
