@@ -1,0 +1,5 @@
+#!/bin/sh
+sleep 10
+aws dynamodb create-table --table-name USERS_TABLE --attribute-definitions AttributeName=userId,AttributeType=S --key-schema AttributeName=userId,KeyType=HASH --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 --endpoint-url http://dynamodb-local:8000
+aws dynamodb create-table --table-name GOALS_TABLE --attribute-definitions AttributeName=goalId,AttributeType=S --key-schema AttributeName=goalId,KeyType=HASH --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 --endpoint-url http://dynamodb-local:8000
+aws dynamodb create-table --table-name WORKOUT_LOGS_TABLE --attribute-definitions AttributeName=workoutId,AttributeType=S --key-schema AttributeName=workoutId,KeyType=HASH --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 --endpoint-url http://dynamodb-local:8000

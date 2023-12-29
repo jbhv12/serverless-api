@@ -157,12 +157,5 @@ app.delete('/goals/:goalId', (req, res) => {
     });
 });
 
-if (process.env.STAGE === 'local') {
-    dynamoDb = new AWS.DynamoDB.DocumentClient({ endpoint: 'http://dynamodb-local:8000' });
-    // createDynamoDBTable();
-    const port = process.env.PORT || 3002;
-    app.listen(port, () => {
-        console.log(`Server is running on port ${port}`);
-    });
-}
 module.exports.handler = serverless(app);
+module.exports = { GoalsApp: app };

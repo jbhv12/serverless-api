@@ -8,7 +8,23 @@ services:
       - '8000:8000'
     volumes:
       - './docker/dynamodb:/home/dynamodblocal/data'
+      - './docker/dynamodb/create-tables.sh:/docker-entrypoint-initaws.d/create-tables.sh'
     working_dir: /home/dynamodblocal
+  aws-cli:
+    image: 'amazon/aws-cli:latest'
+    container_name: aws-cli
+    volumes:
+      - './docker/dynamodb/create-tables.sh:/home/dynamodblocal/create-tables.sh'
+    working_dir: /home/dynamodblocal
+    depends_on:
+      - dynamodb-local
+    links:
+      - dynamodb-local
+    entrypoint: /home/dynamodblocal/create-tables.sh
+    environment:
+      AWS_ACCESS_KEY_ID: DUMMYIDEXAMPLE
+      AWS_SECRET_ACCESS_KEY: DUMMYEXAMPLEKEY
+      AWS_REGION: us-west-2
   app-node:
     build:
       context: .
@@ -16,7 +32,8 @@ services:
     image: location-of-your-dynamodb-demo-app:latest
     container_name: app-node
     ports:
-      - '3000:3000'
+      - '3001:3001'
+      - '3002:3002'
     depends_on:
       - dynamodb-local
     links:
