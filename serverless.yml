@@ -2,7 +2,9 @@ service: serverless-todo-api
 frameworkVersion: '3'
 
 custom:
-  tableName: 'todos_tbl'
+  usersTableName: 'users_${sls:stage}'
+  goalsTableName: 'goals_${sls:stage}'
+  workoutLogTableName: 'workout_logs_${sls:stage}'
 
 provider:
   name: aws
@@ -21,15 +23,20 @@ provider:
             - dynamodb:DeleteItem
           Resource:
             - Fn::GetAtt: [ UsersTable, Arn ]
+            - Fn::GetAtt: [ GoalsTable, Arn ]
+            - Fn::GetAtt: [ WorkoutLogTable, Arn ]
   environment:
-    USERS_TABLE: ${self:custom.tableName}
+    USERS_TABLE: ${self:custom.usersTableName}
+    GOALS_TABLE: ${self:custom.usersTableName}
+    WORKOUT_LOGS_TABLE: ${self:custom.usersTableName}
 
 functions:
   api:
     handler: app.handler
     events:
-      - httpApi: '*'
-
+      - httpApi:
+          path: /todos
+          method: get
 resources:
   Resources:
     UsersTable:
@@ -42,4 +49,34 @@ resources:
           - AttributeName: userId
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
-        TableName: ${self:custom.tableName}
+        TableName: ${self:custom.usersTableName}
+    GoalsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+          - AttributeName: goalId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+          - AttributeName: goalId
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:custom.goalsTableName}
+    WorkoutLogTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+          - AttributeName: logId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+          - AttributeName: logId
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:custom.workoutLogTableName}
