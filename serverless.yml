@@ -27,8 +27,8 @@ provider:
             - Fn::GetAtt: [ WorkoutLogTable, Arn ]
   environment:
     USERS_TABLE: ${self:custom.usersTableName}
-    GOALS_TABLE: ${self:custom.usersTableName}
-    WORKOUT_LOGS_TABLE: ${self:custom.usersTableName}
+    GOALS_TABLE: ${self:custom.goalsTableName}
+    WORKOUT_LOGS_TABLE: ${self:custom.workoutLogTableName}
 
 functions:
   users:
@@ -52,6 +52,24 @@ functions:
       - httpApi:
           path: /users/{id}
           method: DELETE
+  goals:
+    handler: goalsFunction.handler
+    events:
+      - httpApi:
+          path: /goals/{userId}
+          method: POST
+      - httpApi:
+          path: /goals
+          method: GET
+      - httpApi:
+          path: /goals/{goalId}
+          method: GET
+      - httpApi:
+          path: /goals/{goalId}
+          method: PUT
+      - httpApi:
+          path: /goals/{goalId}
+          method: DELETE
 
 resources:
   Resources:
@@ -70,29 +88,21 @@ resources:
       Type: AWS::DynamoDB::Table
       Properties:
         AttributeDefinitions:
-          - AttributeName: userId
-            AttributeType: S
           - AttributeName: goalId
             AttributeType: S
         KeySchema:
-          - AttributeName: userId
-            KeyType: HASH
           - AttributeName: goalId
-            KeyType: RANGE
+            KeyType: HASH
         BillingMode: PAY_PER_REQUEST
         TableName: ${self:custom.goalsTableName}
     WorkoutLogTable:
       Type: AWS::DynamoDB::Table
       Properties:
         AttributeDefinitions:
-          - AttributeName: userId
-            AttributeType: S
           - AttributeName: logId
             AttributeType: S
         KeySchema:
-          - AttributeName: userId
-            KeyType: HASH
           - AttributeName: logId
-            KeyType: RANGE
+            KeyType: HASH
         BillingMode: PAY_PER_REQUEST
         TableName: ${self:custom.workoutLogTableName}
