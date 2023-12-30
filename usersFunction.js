@@ -14,14 +14,10 @@ app.use(express.json());
 const USERS_TABLE = process.env.USERS_TABLE;
 const GOALS_TABLE = process.env.GOALS_TABLE;
 
-app.get('/todos', async (req, res) => {
-        const todos = [
-                { id: 1, title: 'Todo 1', completed: false },
-                { id: 2, title: 'Todo 2', completed: true },
-                { id: 3, title: 'Todo 3', completed: false }
-        ];
-        res.json(todos);
-});
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const openApiDocument = YAML.load('./docs/users-func-docs.yaml');
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(openApiDocument));
 
 app.post('/users', async (req, res) => {
     const { name, email } = req.body;
@@ -123,6 +119,12 @@ app.delete('/users/:id', async (req, res) => {
     };
 
     try {
+        // Check if user exists
+        const user = await dynamoDb.get(params).promise();
+        if (!user.Item) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
         // Delete user
         await dynamoDb.delete(params).promise();
 

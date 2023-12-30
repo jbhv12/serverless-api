@@ -14,6 +14,11 @@ app.use(express.json());
 const GOALS_TABLE = process.env.GOALS_TABLE;
 const USERS_TABLE = process.env.USERS_TABLE;
 
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const openApiDocument = YAML.load('./docs/goals-func-docs.yaml');
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(openApiDocument));
+
 app.post('/goals/:userId', (req, res) => {
     const userId = req.params.userId;
 

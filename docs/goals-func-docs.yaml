@@ -1,0 +1,119 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Goals API
+paths:
+  /goals/{userId}:
+    post:
+      summary: Create a goal
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Goal'
+      responses:
+        '200':
+          description: Goal created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  goalId:
+                    type: string
+        '400':
+          description: Invalid request
+  /goals/{goalId}:
+    get:
+      summary: Get a goal by ID
+      parameters:
+        - in: path
+          name: goalId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Goal retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Goal'
+        '404':
+          description: Goal not found
+
+    put:
+      summary: Update a goal by ID
+      parameters:
+        - in: path
+          name: goalId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Goal'
+      responses:
+        '200':
+          description: Goal updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Goal'
+        '400':
+          description: Invalid request
+        '404':
+          description: Goal not found
+
+    delete:
+      summary: Delete a goal by ID
+      parameters:
+        - in: path
+          name: goalId
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Goal deleted successfully
+        '404':
+          description: Goal not found
+  /goals:
+    get:
+      summary: List all goals
+      parameters:
+        - in: query
+          name: userId
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Goals listed successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Goal'
+        '400':
+          description: Invalid request
+
+components:
+  schemas:
+    Goal:
+      type: object
+      properties:
+        goalId:
+          type: string
+        description:
+          type: string
