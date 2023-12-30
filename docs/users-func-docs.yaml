@@ -138,6 +138,7 @@ paths:
           description: User not found
         '500':
           description: Internal server error
+
 components:
   schemas:
     User:

@@ -32,11 +32,11 @@ provider:
 
 functions:
   users:
-    handler: app/usersFunction.handler
+    handler: usersFunction.handler
     events:
       - httpApi:
-          path: /todos
-          method: GET
+          path: /users-docs
+          method: ANY
       - httpApi:
           path: /users
           method: POST
@@ -53,8 +53,11 @@ functions:
           path: /users/{id}
           method: DELETE
   goals:
-    handler: app/goalsFunction.handler
+    handler: goalsFunction.handler
     events:
+      - httpApi:
+          path: /goals-docs
+          method: GET
       - httpApi:
           path: /goals/{userId}
           method: POST

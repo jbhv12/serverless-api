@@ -16,7 +16,7 @@ app.use(express.json());
 const USERS_TABLE = process.env.USERS_TABLE;
 const GOALS_TABLE = process.env.GOALS_TABLE;
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(YAML.load('./docs/users-func-docs.yaml')));
+app.use('/users-docs', swaggerUi.serve, swaggerUi.setup(YAML.load('docs/users-func-docs.yaml')));
 
 app.post('/users', async (req, res) => {
     const { name, email } = req.body;
@@ -143,6 +143,4 @@ app.delete('/users/:id', async (req, res) => {
     }
 });
 
-
-module.exports.handler = serverless(app);
-module.exports = { UserApp: app };
+module.exports = { handler: serverless(app), UserApp: app };
