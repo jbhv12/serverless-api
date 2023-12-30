@@ -1,13 +1,12 @@
 version: '3.8'
 services:
   dynamodb-local:
-    command: '-jar DynamoDBLocal.jar -sharedDb -dbPath ./data'
+    command: '-jar DynamoDBLocal.jar -sharedDb -inMemory'
     image: 'amazon/dynamodb-local:latest'
     container_name: dynamodb-local
     ports:
       - '8000:8000'
     volumes:
-      - './docker/dynamodb:/home/dynamodblocal/data'
       - './docker/dynamodb/create-tables.sh:/docker-entrypoint-initaws.d/create-tables.sh'
     working_dir: /home/dynamodblocal
   aws-cli:
@@ -29,7 +28,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: location-of-your-dynamodb-demo-app:latest
+    image: fitness-tracker-api:latest
     container_name: app-node
     ports:
       - '3001:3001'
@@ -43,3 +42,6 @@ services:
       AWS_SECRET_ACCESS_KEY: DUMMYEXAMPLEKEY
       REGION: us-west-2
       STAGE: local
+      USERS_TABLE: USERS_TABLE
+      GOALS_TABLE: GOALS_TABLE
+      WORKOUT_LOGS_TABLE: WORKOUT_LOGS_TABLE
