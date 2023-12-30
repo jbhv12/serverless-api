@@ -7,13 +7,13 @@ services:
     ports:
       - '8000:8000'
     volumes:
-      - './docker/dynamodb/create-tables.sh:/docker-entrypoint-initaws.d/create-tables.sh'
+      - './create-tables.sh:/docker-entrypoint-initaws.d/create-tables.sh'
     working_dir: /home/dynamodblocal
   aws-cli:
     image: 'amazon/aws-cli:latest'
     container_name: aws-cli
     volumes:
-      - './docker/dynamodb/create-tables.sh:/home/dynamodblocal/create-tables.sh'
+      - './create-tables.sh:/home/dynamodblocal/create-tables.sh'
     working_dir: /home/dynamodblocal
     depends_on:
       - dynamodb-local

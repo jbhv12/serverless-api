@@ -32,7 +32,7 @@ provider:
 
 functions:
   users:
-    handler: usersFunction.handler
+    handler: app/usersFunction.handler
     events:
       - httpApi:
           path: /todos
@@ -53,7 +53,7 @@ functions:
           path: /users/{id}
           method: DELETE
   goals:
-    handler: goalsFunction.handler
+    handler: app/goalsFunction.handler
     events:
       - httpApi:
           path: /goals/{userId}
