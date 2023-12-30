@@ -35,7 +35,7 @@ functions:
     handler: usersFunction.handler
     events:
       - httpApi:
-          path: /users-docs
+          path: /users-docs/{proxy+}
           method: ANY
       - httpApi:
           path: /users
@@ -56,7 +56,7 @@ functions:
     handler: goalsFunction.handler
     events:
       - httpApi:
-          path: /goals-docs
+          path: /goals-docs/{proxy+}
           method: GET
       - httpApi:
           path: /goals/{userId}
