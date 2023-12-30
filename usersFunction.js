@@ -5,6 +5,9 @@ const { v4: uuidv4 } = require('uuid');
 
 AWS.config.update({ region: 'us-west-2' });
 let dynamoDb = new AWS.DynamoDB.DocumentClient();
+if (process.env.STAGE === 'local') {
+    dynamoDb = new AWS.DynamoDB.DocumentClient({ endpoint: 'http://dynamodb-local:8000' });
+}
 const app = express();
 app.use(express.json());
 
