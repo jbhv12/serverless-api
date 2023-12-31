@@ -73,7 +73,27 @@ functions:
       - httpApi:
           path: /goals/{goalId}
           method: DELETE
-
+  workouts:
+    handler: workoutsFunction.handler
+    events:
+      - httpApi:
+          path: /workouts-docs/{proxy+}
+          method: GET
+      - httpApi:
+          path: /workouts/{userId}
+          method: POST
+      - httpApi:
+          path: /workouts
+          method: GET
+      - httpApi:
+          path: /workouts/{workoutId}
+          method: GET
+      - httpApi:
+          path: /workouts/{workoutId}
+          method: PUT
+      - httpApi:
+          path: /workouts/{workoutId}
+          method: DELETE
 resources:
   Resources:
     UsersTable:

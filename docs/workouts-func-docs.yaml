@@ -1,0 +1,127 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Workouts API
+paths:
+  /workouts/{userId}:
+    post:
+      tags:
+          - Workouts
+      summary: Create a workout
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Workout'
+      responses:
+        '200':
+          description: Workout created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  workoutId:
+                    type: string
+        '400':
+          description: Invalid request
+  /workouts/{workoutId}:
+    get:
+      tags:
+        - Workouts
+      summary: Get a workout by ID
+      parameters:
+        - in: path
+          name: workoutId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Workout retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workout'
+        '404':
+          description: Workout not found
+    put:
+      tags:
+        - Workouts
+      summary: Update a workout by ID
+      parameters:
+        - in: path
+          name: workoutId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Workout'
+      responses:
+        '200':
+          description: Workout updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workout'
+        '400':
+          description: Invalid request
+        '404':
+          description: Workout not found
+    delete:
+      tags:
+        - Workouts
+      summary: Delete a workout by ID
+      parameters:
+        - in: path
+          name: workoutId
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Workout deleted successfully
+        '404':
+          description: Workout not found
+  /workouts:
+    get:
+      tags:
+        - Workouts
+      summary: List all workouts
+      parameters:
+        - in: query
+          name: userId
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Workouts listed successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Workout'
+        '400':
+          description: Invalid request
+
+components:
+  schemas:
+    Workout:
+      type: object
+      properties:
+        workoutId:
+          type: string
+        description:
+          type: string
