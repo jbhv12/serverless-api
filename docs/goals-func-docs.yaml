@@ -5,6 +5,8 @@ info:
 paths:
   /goals/{userId}:
     post:
+      tags:
+        - Goals
       summary: Create a goal
       parameters:
         - in: path
@@ -32,6 +34,8 @@ paths:
           description: Invalid request
   /goals/{goalId}:
     get:
+      tags:
+        - Goals
       summary: Get a goal by ID
       parameters:
         - in: path
@@ -48,8 +52,9 @@ paths:
                 $ref: '#/components/schemas/Goal'
         '404':
           description: Goal not found
-
     put:
+      tags:
+        - Goals
       summary: Update a goal by ID
       parameters:
         - in: path
@@ -74,8 +79,9 @@ paths:
           description: Invalid request
         '404':
           description: Goal not found
-
     delete:
+      tags:
+        - Goals
       summary: Delete a goal by ID
       parameters:
         - in: path
@@ -90,6 +96,8 @@ paths:
           description: Goal not found
   /goals:
     get:
+      tags:
+        - Goals
       summary: List all goals
       parameters:
         - in: query
