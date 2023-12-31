@@ -1,0 +1,390 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Users API
+paths:
+  /users:
+    get:
+      tags:
+        - Users
+      summary: List all users
+      responses:
+        '200':
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      tags:
+        - Users
+      summary: Create a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+  /users/{userId}:
+    get:
+      tags:
+        - Users
+      summary: Get a particular user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - Users
+      summary: Update a user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad request
+        '404':
+          description: User not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - Users
+      summary: Delete a user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User deleted successfully
+        '404':
+          description: User not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - Users
+      summary: Modify a user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User modified successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad request
+        '404':
+          description: User not found
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - Users
+      summary: Delete a user and all associated data with it, including goals and workout logs.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User deleted successfully
+        '404':
+          description: User not found
+        '500':
+          description: Internal server error
+  /goals/{userId}:
+    post:
+      tags:
+        - Goals
+      summary: Create a goal
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Goal'
+      responses:
+        '200':
+          description: Goal created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  goalId:
+                    type: string
+        '400':
+          description: Invalid request
+  /goals/{goalId}:
+    get:
+      tags:
+        - Goals
+      summary: Get a goal by ID
+      parameters:
+        - in: path
+          name: goalId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Goal retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Goal'
+        '404':
+          description: Goal not found
+    put:
+      tags:
+        - Goals
+      summary: Update a goal by ID
+      parameters:
+        - in: path
+          name: goalId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Goal'
+      responses:
+        '200':
+          description: Goal updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Goal'
+        '400':
+          description: Invalid request
+        '404':
+          description: Goal not found
+    delete:
+      tags:
+        - Goals
+      summary: Delete a goal by ID
+      parameters:
+        - in: path
+          name: goalId
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Goal deleted successfully
+        '404':
+          description: Goal not found
+  /goals:
+    get:
+      tags:
+        - Goals
+      summary: List all goals
+      parameters:
+        - in: query
+          name: userId
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Goals listed successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Goal'
+        '400':
+          description: Invalid request
+  /workouts/{userId}:
+    post:
+      tags:
+          - Workouts
+      summary: Create a workout
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Workout'
+      responses:
+        '200':
+          description: Workout created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  workoutId:
+                    type: string
+        '400':
+          description: Invalid request
+  /workouts/{workoutId}:
+    get:
+      tags:
+        - Workouts
+      summary: Get a workout by ID
+      parameters:
+        - in: path
+          name: workoutId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Workout retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workout'
+        '404':
+          description: Workout not found
+    put:
+      tags:
+        - Workouts
+      summary: Update a workout by ID
+      parameters:
+        - in: path
+          name: workoutId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Workout'
+      responses:
+        '200':
+          description: Workout updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workout'
+        '400':
+          description: Invalid request
+        '404':
+          description: Workout not found
+    delete:
+      tags:
+        - Workouts
+      summary: Delete a workout by ID
+      parameters:
+        - in: path
+          name: workoutId
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Workout deleted successfully
+        '404':
+          description: Workout not found
+  /workouts:
+    get:
+      tags:
+        - Workouts
+      summary: List all workouts
+      parameters:
+        - in: query
+          name: userId
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Workouts listed successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Workout'
+        '400':
+          description: Invalid request
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        userId:
+          type: string
+        name:
+          type: string
+        email:
+          type: string

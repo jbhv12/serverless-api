@@ -1,6 +1,8 @@
 if (process.env.STAGE === 'local') {
     const { UserApp } = require('./usersFunction.js');
     const { GoalsApp } = require('./goalsFunction.js');
+    const { WorkoutsApp } = require('./workoutsFunction.js');
+    const { DocsApp } = require('./docsFunction.js');
 
     const AWS = require('aws-sdk');
     AWS.config.update({ region: 'us-west-2' });
@@ -13,5 +15,11 @@ if (process.env.STAGE === 'local') {
     });
     GoalsApp.listen(3002, () => {
         console.log(`Server is running on port 3002`);
+    });
+    WorkoutsApp.listen(3003, () => {
+        console.log(`Server is running on port 3003`);
+    });
+    DocsApp.listen(3004, () => {
+        console.log(`Server is running on port 3004`);
     });
 }
