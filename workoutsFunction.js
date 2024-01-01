@@ -62,14 +62,14 @@ app.get('/workouts', (req, res) => {
 
     if (userId) {
         const params = {
-            TableName: USERS_TABLE,
-            KeyConditionExpression: 'userId = :userId',
+            TableName: WORKOUT_LOGS_TABLE,
+            FilterExpression: 'userId = :userId',
             ExpressionAttributeValues: {
-                ':userId': userId
-            }
+                ':userId': userId,
+            },
         };
 
-        dynamoDb.query(params, (error, result) => {
+        dynamoDb.scan(params, (error, result) => {
             if (error) {
                 res.status(400).json({ error: 'Error fetching workouts for user' });
             } else {

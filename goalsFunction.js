@@ -62,15 +62,16 @@ app.get('/goals', (req, res) => {
 
     if (userId) {
         const params = {
-            TableName: USERS_TABLE,
-            KeyConditionExpression: 'userId = :userId',
+            TableName: GOALS_TABLE,
+            FilterExpression: 'userId = :userId',
             ExpressionAttributeValues: {
                 ':userId': userId
             }
         };
 
-        dynamoDb.query(params, (error, result) => {
+        dynamoDb.scan(params, (error, result) => {
             if (error) {
+                console.log(error);
                 res.status(400).json({ error: 'Error fetching goals for user' });
             } else {
                 res.json(result.Items);

@@ -15,6 +15,7 @@ app.use(express.json());
 
 const USERS_TABLE = process.env.USERS_TABLE;
 const GOALS_TABLE = process.env.GOALS_TABLE;
+const WORKOUT_LOGS_TABLE = process.env.WORKOUT_LOGS_TABLE;
 
 app.use('/users-docs', swaggerUi.serve, swaggerUi.setup(YAML.load('docs/users-func-docs.yaml')));
 
@@ -128,13 +129,7 @@ app.delete('/users/:id', async (req, res) => {
         await dynamoDb.delete(params).promise();
 
         // Delete associated goals
-        const goalsParams = {
-            TableName: GOALS_TABLE,
-            Key: {
-                userId: id
-            }
-        };
-        await dynamoDb.delete(goalsParams).promise();
+        
 
         res.json({ success: `User with ID: ${id} and associated goals were deleted` });
     } catch (error) {
