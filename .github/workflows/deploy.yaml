@@ -19,7 +19,10 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm ci
+    - name: Run npm ci in app directory
+      run: |
+        cd app
+        npm ci
     - name: Set Stage
       run: |
         if [[ $GITHUB_REF == 'refs/heads/main' ]]; then
