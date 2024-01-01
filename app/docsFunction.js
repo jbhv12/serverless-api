@@ -9,6 +9,7 @@ app.get('/', (req, res) => {
     res.redirect('/docs/');
 });
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(YAML.load('docs/openapi.yaml')));
+const docs = process.env.STAGE === 'local' ? 'docs/openapi.yaml' : 'app/docs/openapi.yaml';
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(YAML.load(docs)));
 
 module.exports = { handler: serverless(app), DocsApp: app };

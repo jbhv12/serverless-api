@@ -32,7 +32,7 @@ provider:
 
 functions:
   users:
-    handler: usersFunction.handler
+    handler: app/usersFunction.handler
     events:
       - httpApi:
           path: /users-docs/{proxy+}
@@ -53,7 +53,7 @@ functions:
           path: /users/{id}
           method: DELETE
   goals:
-    handler: goalsFunction.handler
+    handler: app/goalsFunction.handler
     events:
       - httpApi:
           path: /goals-docs/{proxy+}
@@ -74,7 +74,7 @@ functions:
           path: /goals/{goalId}
           method: DELETE
   workouts:
-    handler: workoutsFunction.handler
+    handler: app/workoutsFunction.handler
     events:
       - httpApi:
           path: /workouts-docs/{proxy+}
@@ -95,7 +95,7 @@ functions:
           path: /workouts/{workoutId}
           method: DELETE
   docs:
-    handler: docsFunction.handler
+    handler: app/docsFunction.handler
     events:
       - httpApi:
           path: /docs/{proxy+}
