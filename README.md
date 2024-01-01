@@ -12,10 +12,10 @@ The project also supports multistage deployment with GitHub Actions. The `main` 
 
 ### Hosted Version
 
-To quickly try out the Workout Tracker API, you can access the stable hosted version at [https://workout-tracker-api.example.com](https://workout-tracker-api.example.com).
+To quickly try out the Workout Tracker API, you can access the stable hosted version at [https://jmb6cgzee2.execute-api.us-west-2.amazonaws.com/](https://jmb6cgzee2.execute-api.us-west-2.amazonaws.com/).
 
 
-The development version can be accessed at [https://workout-tracker-api-dev.example.com](https://workout-tracker-api-dev.example.com).
+The development version can be accessed at [https://krxnwyfj7f.execute-api.us-west-2.amazonaws.com/docs/](https://krxnwyfj7f.execute-api.us-west-2.amazonaws.com/docs/).
 
 ### Running locally
 
