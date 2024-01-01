@@ -1,8 +1,6 @@
 const express = require('express');
 const AWS = require('aws-sdk');
 const serverless = require("serverless-http");
-const swaggerUi = require('swagger-ui-express');
-const YAML = require('yamljs');
 const { v4: uuidv4 } = require('uuid');
 
 AWS.config.update({ region: 'us-west-2' });
@@ -16,8 +14,6 @@ app.use(express.json());
 const USERS_TABLE = process.env.USERS_TABLE;
 const GOALS_TABLE = process.env.GOALS_TABLE;
 const WORKOUT_LOGS_TABLE = process.env.WORKOUT_LOGS_TABLE;
-
-app.use('/users-docs', swaggerUi.serve, swaggerUi.setup(YAML.load('docs/users-func-docs.yaml')));
 
 app.post('/users', async (req, res) => {
     const { name, email } = req.body;

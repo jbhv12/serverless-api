@@ -35,9 +35,6 @@ functions:
     handler: app/usersFunction.handler
     events:
       - httpApi:
-          path: /users-docs/{proxy+}
-          method: ANY
-      - httpApi:
           path: /users
           method: POST
       - httpApi:
@@ -56,9 +53,6 @@ functions:
     handler: app/goalsFunction.handler
     events:
       - httpApi:
-          path: /goals-docs/{proxy+}
-          method: GET
-      - httpApi:
           path: /goals/{userId}
           method: POST
       - httpApi:
@@ -76,9 +70,6 @@ functions:
   workouts:
     handler: app/workoutsFunction.handler
     events:
-      - httpApi:
-          path: /workouts-docs/{proxy+}
-          method: GET
       - httpApi:
           path: /workouts/{userId}
           method: POST
