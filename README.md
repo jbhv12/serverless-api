@@ -16,6 +16,7 @@ Some of the best practices followed:
 - Integration tests.
 - Easy local setup with Docker and Docker Compose for quick development.
 - Utilizing the Serverless framework for effortless deployment.
+- GitHub Actions are set in place to automatically deploy services to AWS on code push.
 
 ## Quick Start
 
