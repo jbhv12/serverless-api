@@ -1,5 +1,5 @@
 const request = require('supertest');
-const { handler, UserApp } = require('../usersFunction');
+const { handler, UserApp } = require('../src/usersFunction');
 
 describe('User API Tests', () => {
   afterAll(async () => {

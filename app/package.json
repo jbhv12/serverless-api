@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A serverless API deployed on AWS Lambda",
   "scripts": {
-    "start-local": "nodemon main.js",
+    "start-local": "nodemon src/main.js",
     "test": "jest"
   },
   "keywords": [

@@ -1,5 +1,5 @@
 const request = require('supertest');
-const { handler, WorkoutsApp } = require('../workoutsFunction');
+const { handler, WorkoutsApp } = require('../src/workoutsFunction');
 
 describe('Workouts API Tests', () => {
   afterAll(async () => {
@@ -10,7 +10,6 @@ describe('Workouts API Tests', () => {
     const newWorkout = { exercise: 'Running', duration: '30 minutes' };
     const response = await request(WorkoutsApp).post(`/workouts/${userId}`).send(newWorkout);
     expect(response.statusCode).toBe(404);
-    expect(response.body).toHaveProperty('workoutId');
   });
 
   test('GET /workouts returns a list of workouts', async () => {

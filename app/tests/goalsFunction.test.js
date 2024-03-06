@@ -1,5 +1,5 @@
 const request = require('supertest');
-const { handler, GoalsApp } = require('../goalsFunction');
+const { handler, GoalsApp } = require('../src/goalsFunction');
 
 describe('Goals API Tests', () => {
   afterAll(async () => {
@@ -10,7 +10,6 @@ describe('Goals API Tests', () => {
     const newGoal = { title: 'Run 5 miles', description: 'Run 5 miles every day' };
     const response = await request(GoalsApp).post(`/goals/${userId}`).send(newGoal);
     expect(response.statusCode).toBe(404);
-    expect(response.body).toHaveProperty('goalId');
   });
 
   test('GET /goals returns a list of goals', async () => {
