@@ -30,6 +30,7 @@ services:
       dockerfile: Dockerfile
     image: fitness-tracker-api:latest
     container_name: app-node
+    command: npm run start-local
     ports:
       - '3001:3001'
       - '3002:3002'
