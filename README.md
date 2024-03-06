@@ -8,6 +8,15 @@ This application utilizes a variety of technologies including Node.js for the ba
 
 The project also supports multistage deployment with GitHub Actions. The `main` branch is deployed to the production environment, ensuring that only stable and tested code is released. The `dev` branch, on the other hand, is deployed to the test environment, allowing for continuous integration and testing of new features and changes before they are merged into the main branch.
 
+Some of the best practices followed:
+- Clean and clear code, with legible naming conventions and directory structure.
+- Swagger for demo and live testing.
+- Local setup with DynamoDB.
+- Assigning different roles for different functions.
+- Integration tests.
+- Easy local setup with Docker and Docker Compose for quick development.
+- Utilizing the Serverless framework for effortless deployment.
+
 ## Quick Start
 
 ### Hosted Version
